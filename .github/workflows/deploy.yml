@@ -10,7 +10,28 @@ permissions:
   id-token: write
 
 jobs:
+  sanity-check:
+    runs-on: ubuntu-latest
+    outputs:
+      node: ${{ steps.node_version.outputs.node || '' }}
+    steps:
+      - name: Checkout repository (debug)
+        uses: actions/checkout@v4
+
+      - name: Print runner info
+        run: |
+          echo "Running on $(uname -a || hostname)"
+          echo "Workspace: $GITHUB_WORKSPACE"
+          ls -la
+
+      - name: Check Node/npm
+        id: node_version
+        run: |
+          node -v || echo "no node"
+          npm -v || echo "no npm"
+
   build-and-deploy:
+    needs: sanity-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
