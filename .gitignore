@@ -1,0 +1,11 @@
+node_modules/
+_site/
+.DS_Store
+.vscode/
+Thumbs.db
+package-lock.json
+node_modules/
+_site/
+.DS_Store
+npm-debug.log*
+.env
